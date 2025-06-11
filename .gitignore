@@ -33,4 +33,7 @@ build/
 .vscode/
 
 #测试文件夹
-!**/src/test/**
+/src/test/java/cn/edu/guet/quickarenabackend/mapper/GameMapperTest.java
+/src/test/java/cn/edu/guet/quickarenabackend/mapper/UserMapperTest.java
+/src/test/java/cn/edu/guet/quickarenabackend/QuickArenaBackendApplicationTests.java
+/src/test/java/cn/edu/guet/quickarenabackend/RedisConfigTest.java
