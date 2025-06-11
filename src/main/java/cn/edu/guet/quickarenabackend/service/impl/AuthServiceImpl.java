@@ -106,19 +106,4 @@ public class AuthServiceImpl implements AuthService {
     return rows > 0;
   }
 
-  @Override
-  public boolean checkLogin(String jwt) {
-    // 1. 校验JWT有效性和是否过期
-    if (!jwtUtil.validateToken(jwt)) {
-      return false;
-    }
-    // 2. 解析userId
-    Long userId = jwtUtil.getUserIdFromToken(jwt);
-    if (userId == null) {
-      return false;
-    }
-    // 3. 检查Redis登录标记
-    String loginFlag = stringRedisTemplate.opsForValue().get(userId.toString());
-    return loginFlag != null && !loginFlag.trim().isEmpty();
-  }
 }

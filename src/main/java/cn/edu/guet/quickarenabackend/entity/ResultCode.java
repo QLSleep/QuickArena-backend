@@ -12,7 +12,8 @@ public enum ResultCode {
   SERVER_ERROR(500, "服务器内部错误"),
   USERNAME_OR_PASSWORD_ERROR(1001, "用户名或密码错误"),
   USER_ALREADY_EXISTS(1002, "用户已存在"),
-  PARAM_ERROR(1003, "参数错误");
+  PARAM_ERROR(1003, "参数错误"),
+  USER_ALREADY_LOGGED_IN(1004, "用户已登录");
   // ...可以继续扩展
 
   private final int code;

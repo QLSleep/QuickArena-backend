@@ -1,5 +1,7 @@
 package cn.edu.guet.quickarenabackend.interceptor;
 
+import cn.edu.guet.quickarenabackend.entity.Result;
+import cn.edu.guet.quickarenabackend.entity.ResultCode;
 import cn.edu.guet.quickarenabackend.util.JwtUtil;
 import com.alibaba.fastjson2.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,12 @@ public class JwtInterceptor implements HandlerInterceptor {
 
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+    // 0. 预检请求直接放行，不能做任何校验！
+    if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+      response.setStatus(HttpServletResponse.SC_OK);
+      return true;
+    }
+
     // 1. 排除不需要认证的接口（如登录、注册等）
     String path = request.getRequestURI();
     if (path.startsWith("/api/auth/")) {
@@ -50,9 +58,8 @@ public class JwtInterceptor implements HandlerInterceptor {
     // 4. 校验失败，返回401
     response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
     response.setContentType("application/json;charset=UTF-8");
-    Map<String, Object> result = new HashMap<>();
-    result.put("code", 401);
-    result.put("message", "未授权，请提供有效的Token");
+    Result<Void> result = Result.error(ResultCode.UNAUTHORIZED);
+
     try {
       response.getWriter().write(JSON.toJSONString(result));
     } catch (Exception e) {

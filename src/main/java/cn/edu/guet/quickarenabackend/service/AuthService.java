@@ -11,6 +11,4 @@ public interface AuthService {
 
   public boolean register(UserRegisterDto userRegisterDto);
 
-  public boolean checkLogin(String jwt);
-
 }
