@@ -28,6 +28,7 @@ spring:
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    mapper-locations: classpath*:/cn/edu/guet/quickarenabackend/mapper/*.xml
 
 logging:
   level:

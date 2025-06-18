@@ -1,6 +1,5 @@
 package cn.edu.guet.quickarenabackend.service.impl;
 
-import cn.edu.guet.quickarenabackend.config.JwtConfig;
 import cn.edu.guet.quickarenabackend.dto.UserLoginDto;
 import cn.edu.guet.quickarenabackend.dto.UserRegisterDto;
 import cn.edu.guet.quickarenabackend.entity.User;

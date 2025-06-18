@@ -16,7 +16,7 @@ public class UserController {
 
   // 退出登录
   @PostMapping("/logout")
-  public Result<Void> logout(HttpServletRequest request) {
+    public Result<Void> logout(HttpServletRequest request) {
     Object userIdObj = request.getAttribute("userId");
     if (userIdObj == null) {
       return Result.error(ResultCode.UNAUTHORIZED, null);
@@ -33,5 +33,10 @@ public class UserController {
     } else {
       return Result.error(ResultCode.FAIL, null);
     }
+  }
+
+  @GetMapping("/testRsc")
+  public Result<String> testRsc(HttpServletRequest request) {
+    return Result.success("这是测试信息");
   }
 }
