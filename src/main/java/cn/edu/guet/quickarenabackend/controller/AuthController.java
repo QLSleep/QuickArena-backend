@@ -1,10 +1,13 @@
 package cn.edu.guet.quickarenabackend.controller;
 
+import cn.edu.guet.quickarenabackend.dto.UserInfoDto;
 import cn.edu.guet.quickarenabackend.dto.UserLoginDto;
 import cn.edu.guet.quickarenabackend.dto.UserRegisterDto;
 import cn.edu.guet.quickarenabackend.entity.Result;
 import cn.edu.guet.quickarenabackend.entity.ResultCode;
 import cn.edu.guet.quickarenabackend.service.AuthService;
+import cn.edu.guet.quickarenabackend.service.UserService;
+import cn.edu.guet.quickarenabackend.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,12 +21,21 @@ public class AuthController {
   @Autowired
   private AuthService authService;
 
+  @Autowired
+  private UserService userService;
+
+  @Autowired
+  private JwtUtil jwtUtil;
+
   // 用户登录
   @PostMapping("/login")
   public Result<Map<String, Object>> login(@RequestBody UserLoginDto userLoginDto) {
     try {
       String token = authService.login(userLoginDto);
+      Long userId = jwtUtil.getUserIdFromToken(token);
+      UserInfoDto userInfoDto = userService.getUserInfo(userId);
       Map<String, Object> data = new HashMap<>();
+      data.put("userInfo", userInfoDto);
       data.put("token", token);
       return Result.success(data);
     } catch (IllegalArgumentException e) {
@@ -66,7 +78,7 @@ public class AuthController {
       }
     } catch (Exception e) {
       // 其它未预见异常
-      return Result.error(ResultCode.SERVER_ERROR, null);
+      return Result.error(ResultCode.SERVER_ERROR.getCode(), e.getMessage());
     }
   }
 }

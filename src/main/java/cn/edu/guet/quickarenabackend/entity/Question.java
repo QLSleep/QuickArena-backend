@@ -25,7 +25,7 @@ public class Question {
   @TableField("create_time")
   private LocalDateTime createTime;
 
-  public Question(long id, String content, String answer, QuestionDifficulty difficulty, LocalDateTime createTime) {
+  public Question(Long id, String content, String answer, QuestionDifficulty difficulty, LocalDateTime createTime) {
     this.id = id;
     this.content = content;
     this.answer = answer;
@@ -47,11 +47,11 @@ public class Question {
         '}';
   }
 
-  public long getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(Long id) {
     this.id = id;
   }
 

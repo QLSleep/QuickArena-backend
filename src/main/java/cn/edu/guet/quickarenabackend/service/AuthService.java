@@ -7,7 +7,7 @@ public interface AuthService {
 
   public String login(UserLoginDto userLoginDto);
 
-  public boolean logout(Long userId);
+//  public boolean logout(Long userId);
 
   public boolean register(UserRegisterDto userRegisterDto);
 

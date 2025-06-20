@@ -1,71 +1,34 @@
-package cn.edu.guet.quickarenabackend.entity;
-
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+package cn.edu.guet.quickarenabackend.dto;
 
 import java.time.LocalDateTime;
 
-@TableName("practice_record")
-public class PracticeRecord {
-
-  @TableId(type = IdType.AUTO)
-  private Long id;
-
-  @TableField("user_id")
-  private Long userId;
-
-  @TableField("question_id")
+/**
+ * 前端传递的练习记录数据，不包含id和userId
+ */
+public class PracticeRecordDto {
   private Long questionId;
-
-  @TableField("user_answer")
   private String userAnswer;
-
-  @TableField("is_correct")
   private Integer isCorrect;
-
-  @TableField("record_time")
   private LocalDateTime recordTime;
 
-  public PracticeRecord(Long id, Long userId, Long questionId, String userAnswer, Integer isCorrect, LocalDateTime recordTime) {
-    this.id = id;
-    this.userId = userId;
+  public PracticeRecordDto(Long questionId, String userAnswer, Integer isCorrect, LocalDateTime recordTime) {
     this.questionId = questionId;
     this.userAnswer = userAnswer;
     this.isCorrect = isCorrect;
     this.recordTime = recordTime;
   }
 
-  public PracticeRecord() {
+  public PracticeRecordDto() {
   }
 
   @Override
   public String toString() {
-    return "PracticeRecord{" +
-        "id=" + id +
-        ", userId=" + userId +
-        ", questionId=" + questionId +
+    return "PracticeRecordDto{" +
+        "questionId=" + questionId +
         ", userAnswer='" + userAnswer + '\'' +
         ", isCorrect=" + isCorrect +
         ", recordTime=" + recordTime +
         '}';
-  }
-
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public Long getUserId() {
-    return userId;
-  }
-
-  public void setUserId(Long userId) {
-    this.userId = userId;
   }
 
   public Long getQuestionId() {

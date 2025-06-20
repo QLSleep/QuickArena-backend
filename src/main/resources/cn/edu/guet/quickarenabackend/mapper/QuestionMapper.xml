@@ -6,7 +6,8 @@
 <mapper namespace="cn.edu.guet.quickarenabackend.mapper.QuestionMapper">
 
     <!-- 批量插入 -->
-    <insert id="insertBatch" parameterType="java.util.List">
+    <insert id="insertBatch" parameterType="java.util.List"
+            useGeneratedKeys="true" keyProperty="id">
         INSERT INTO question (content, answer, difficulty, create_time)
         VALUES
         <foreach collection="list" item="item" separator=",">

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.guet.quickarenabackend.mapper.PracticeRecordMapper">
+
+    <insert id="insertBatch">
+        insert into practice_record (user_id, question_id, user_answer, is_correct, record_time)
+        values
+        <foreach collection="records" item="item" separator=",">
+            (#{item.userId}, #{item.questionId}, #{item.userAnswer}, #{item.isCorrect}, #{item.recordTime})
+        </foreach>
+    </insert>
+
+    <select id="selectUserPracticeRecordDetail" parameterType="long" resultType="cn.edu.guet.quickarenabackend.dto.PracticeRecordDetailDto">
+        SELECT
+            pr.id AS recordId,
+            q.id AS questionId,
+            q.content AS questionContent,
+            q.answer AS correctAnswer,
+            pr.user_answer AS userAnswer,
+            pr.is_correct AS isCorrect,
+            q.difficulty AS questionDifficulty,
+            pr.record_time AS recordTime
+        FROM practice_record pr
+                 JOIN question q ON pr.question_id = q.id
+        WHERE pr.user_id = #{userId}
+        ORDER BY pr.record_time DESC
+    </select>
+</mapper>

@@ -1,10 +1,14 @@
 package cn.edu.guet.quickarenabackend.service.impl;
 
+import cn.edu.guet.quickarenabackend.dto.PracticeRecordDetailDto;
+import cn.edu.guet.quickarenabackend.dto.PracticeRecordDto;
 import cn.edu.guet.quickarenabackend.dto.QuestionToUserDto;
+import cn.edu.guet.quickarenabackend.entity.PracticeRecord;
 import cn.edu.guet.quickarenabackend.entity.Question;
 import cn.edu.guet.quickarenabackend.entity.QuestionDifficulty;
+import cn.edu.guet.quickarenabackend.mapper.PracticeRecordMapper;
 import cn.edu.guet.quickarenabackend.mapper.QuestionMapper;
-import cn.edu.guet.quickarenabackend.service.PersonalPractice;
+import cn.edu.guet.quickarenabackend.service.PersonalPracticeService;
 import cn.edu.guet.quickarenabackend.util.GeneratorFactory;
 import cn.edu.guet.quickarenabackend.util.QuestionAnswerUtil;
 import cn.edu.guet.quickarenabackend.util.generator.ExpressionGenerator;
@@ -16,10 +20,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class PersonalPracticeImpl implements PersonalPractice {
+public class PersonalPracticeServiceImpl implements PersonalPracticeService {
 
   @Autowired
   private QuestionMapper questionMapper;
+
+  @Autowired
+  private PracticeRecordMapper practiceRecordMapper;
 
   /***
    * 获取练习题
@@ -45,4 +52,26 @@ public class PersonalPracticeImpl implements PersonalPractice {
     }
     return questionToUserDtoList;
   }
+
+  @Override
+  public boolean submitPracticeRecord(long userId, List<PracticeRecordDto> practiceRecordDtoList) {
+    List<PracticeRecord> practiceRecordList = new ArrayList<>();
+    for (PracticeRecordDto practiceRecordDto : practiceRecordDtoList) {
+      PracticeRecord practiceRecord = new PracticeRecord();
+      practiceRecord.setUserId(userId);
+      practiceRecord.setQuestionId(practiceRecordDto.getQuestionId());
+      practiceRecord.setUserAnswer(practiceRecordDto.getUserAnswer());
+      practiceRecord.setIsCorrect(practiceRecordDto.getIsCorrect());
+      practiceRecord.setRecordTime(practiceRecordDto.getRecordTime());
+      practiceRecordList.add(practiceRecord);
+    }
+    int i = practiceRecordMapper.insertBatch(practiceRecordList);
+    return i > 0;
+  }
+
+  @Override
+  public List<PracticeRecordDetailDto> getPracticeRecordDetails(long userId) {
+    return practiceRecordMapper.selectUserPracticeRecordDetail(userId);
+  }
+
 }

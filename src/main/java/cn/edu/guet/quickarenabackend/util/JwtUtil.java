@@ -13,7 +13,7 @@ import java.security.Key;
 import java.util.Date;
 
 @Component
-public class JwtUtil {
+public class  JwtUtil {
 
   @Resource
   private JwtConfig jwtConfig;

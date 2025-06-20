@@ -61,19 +61,19 @@ public class AuthServiceImpl implements AuthService {
     return jwtUtil.generateToken(user);
   }
 
-  @Override
-  public boolean logout(Long userId) {
-
-    User user = userMapper.selectById(userId);
-    if (user == null) {
-      //TODO
-      return false;
-    }
-
-    stringRedisTemplate.delete(userId.toString());
-
-    return true;
-  }
+//  @Override
+//  public boolean logout(Long userId) {
+//
+//    User user = userMapper.selectById(userId);
+//    if (user == null) {
+//      //TODO
+//      return false;
+//    }
+//
+//    stringRedisTemplate.delete(userId.toString());
+//
+//    return true;
+//  }
 
 
   @Override
