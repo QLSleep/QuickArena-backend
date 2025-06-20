@@ -36,5 +36,5 @@ logging:
     cn.edu.guet.quickarena: debug
 # JWT配置
 jwt:
-  secret: XjW2Lb1rVtQe5a9sYz3Gf7HnKp6Tq8MwRj4Uc2Xd9Bv7Es1Qh6Zc8Lp5Sn2Vm3XxYb8Tp4Wv7Rk3Qs8Nj6Fg5Zp7Ld2Xv6Ms4  # 建议使用至少32位随机字符串
+  secret: xxxxxxxxxxxxx  # 建议使用至少32位随机字符串
   expiration: 86400                         # 有效期24小时（秒） 60*60*24
